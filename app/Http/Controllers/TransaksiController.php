@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(){
         $datas = DB::select('select * from transaksis t inner join barangs b on t.id_barang = b.id_barang where deleted_at IS NULL');
 
@@ -52,9 +57,15 @@ public function store(Request $request){
     return redirect('/pesan');
 }
 public function edit($id){
+    $pembeli = DB::select('select * from pembelis');
+    $barang = DB::select('select * from barangs');
+    $pegkasir = DB::select('select * from pegawai_kasirs');
     $data = DB::select('select * from transaksis where id_trans = ?',[$id])[0];
-    return view('transaksi.edit', [
-        "data" => $data,
+
+    return view('transaksi.create', [
+        'pembeli' => $pembeli,
+        'barang' => $barang,
+        'pegkasir' => $pegkasir,
         "title" => "Transaksi"
     ]);
 }

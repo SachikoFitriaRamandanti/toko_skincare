@@ -20,26 +20,28 @@ use App\Http\Controllers\TransaksiController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', [
-        "title" => "Home"
-    ]);
+// Route::get('/', function () {
+//     return view('welcome', [
+//         "title" => "Home"
+//     ]);
+// });
+
+
+Auth::routes();
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', function () {
+            return view('welcome', [
+                "title" => "Home"
+            ]);
+        })->name('home');;
 });
-
-
 Route::post('/search', [BarangController::class, 'search'])->name("transaksi.search");
-
-Route::get('/register', [RegisterController::class, 'index']);
-Route::post('/register', [RegisterController::class, 'store']);
-
 Route::get('/skincare', [BarangController::class, 'index']);
 Route::get('/skincare/tambah', [BarangController::class, 'add']);
 Route::post('/skincare/tambah', [BarangController::class, 'store']);
 Route::get('/skincare/edit/{data:id_barang}', [BarangController::class, 'edit']);
 Route::post('/skincare/update/{data:id_barang}', [BarangController::class, 'update']);
 Route::delete('/skincare/hapus/{data:id_barang}', [BarangController::class, 'destroy']);
-
-
 Route::get('/pembeli', [PembeliController::class, 'index']);
 Route::get('/pembeli/tambah', [PembeliController::class, 'add']);
 Route::post('/pembeli/tambah', [PembeliController::class, 'store']);
@@ -62,6 +64,3 @@ Route::delete('/pesan/hapus-sementara/{data:id_trans}', [TransaksiController::cl
 Route::delete('/pesan/hapus-permanen/{data:id_trans}', [TransaksiController::class, 'hardDelete']);
 
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/login/auth', [LoginController::class, 'authenticate']);
-// Route::post('/logout', [LoginController::class, 'logout']);

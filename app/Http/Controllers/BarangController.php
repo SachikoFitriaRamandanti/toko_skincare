@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 public function index(){
     $datas = DB::select('select * from barangs');
     return view('barang.detail', [
