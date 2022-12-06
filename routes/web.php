@@ -48,6 +48,7 @@ Route::post('/pembeli/tambah', [PembeliController::class, 'store']);
 Route::get('/pembeli/edit/{data:id_pembeli}', [PembeliController::class, 'edit']);
 Route::post('/pembeli/update/{data:id_pembeli}', [PembeliController::class, 'update']);
 Route::delete('/pembeli/hapus/{data:id_pembeli}', [PembeliController::class, 'destroy']);
+Route::delete('/pembeli/hapus-sementara/{data:id_pembeli}', [PembeliController::class, 'softDelete']);
 
 Route::get('/pegawai', [PegawaiController::class, 'index']);
 Route::get('/pegawai/tambah', [PegawaiController::class, 'add']);

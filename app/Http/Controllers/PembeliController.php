@@ -14,7 +14,7 @@ class PembeliController extends Controller
     }
 
     public function index(){
-        $datas = DB::select('select * from pembelis');
+        $datas = DB::select('select * from pembelis WHERE deleted_at is null');
         
         return view('pembeli.detail', [            
             "datas" => $datas,
@@ -65,6 +65,16 @@ public function destroy($id_pembeli)
     return redirect('/pembeli');
 
 }
+public function softDelete(Request $request, $id_pembeli){
+
+    DB::update('update pembelis set deleted_at = ? where id_pembeli = ?',[
+        now(),
+        $id_pembeli
+    ]);
+
+    return redirect('/pembeli');
+}
+
 }
 
 

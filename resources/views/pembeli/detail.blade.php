@@ -23,6 +23,11 @@
         <td>{{$data->alamat}}</td>
         <td>
             <a type="button" href="/pembeli/edit/{{$data->id_pembeli}}" class="btn btn-warning" >Ubah Data</a>
+            <form action="/pembeli/hapus-sementara/{{$data->id_pembeli}}" method="post" class="d-inline">
+                @method('delete')
+                @csrf
+                <button class="btn btn-primary border-0" onclick="return confirm('Yakin mau hapus sementara?')">Hapus Sementara</button>
+            </form>
             <form action="/pembeli/hapus/{{$data->id_pembeli}}" method="post" class="d-inline">
                 @method('delete')
                 @csrf
